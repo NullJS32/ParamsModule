@@ -6,10 +6,18 @@ $db = require __DIR__ . '/db.php';
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'ParamsModule'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
+    ],
+    'modules' => [
+        'ParamsModule' => [
+            'class' => 'app\modules\params\ParamsModule',
+        ],
+        'testmodule' => [
+            'class' => 'app\modules\testmodule',
+        ],
     ],
     'components' => [
         'request' => [
@@ -18,6 +26,11 @@ $config = [
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
         ],
         'user' => [
             'identityClass' => 'app\models\User',
@@ -42,15 +55,7 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
         ],
-        */
-    ],
     'params' => $params,
 ];
 
